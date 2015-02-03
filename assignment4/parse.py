@@ -26,12 +26,11 @@ data = readCSV('permits_hydepark.csv')
 data_zip = pandas.read_csv("permits_hydepark.csv", header=None, usecols=[28,35,42, 49, 56, 63, 70, 77, 84])
 
 
-"""df2 = data_zip
 plt.figure();
-df2.plot(kind='bar'); 
-plt.show()"""
+data_zip.plot(kind='bar'); 
+plt.show()
 
-def zip_list():
+"""def zip_list():
 	zip_list = []
 	for i in data_zip:
 		if i != "NaN":
@@ -39,7 +38,7 @@ def zip_list():
 			zip_list.append[z]
 		return zip_list
 
-print zip_list(), "zip_list"
+print zip_list(), "zip_list" """
 
 
 print "Panda columns: ***"
