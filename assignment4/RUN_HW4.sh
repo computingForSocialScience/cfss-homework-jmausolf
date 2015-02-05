@@ -1,7 +1,7 @@
 ### Designed to Run in MacOSX Terminal. "Open" commands do not run in Linnux.
 echo "This script was designed to run in MAC OSX Terminal."
 echo "It will not have full functionality in Linnux."
-echo "Created by Joshua G. Mausolf"
+echo "Created by Joshua G. Mausolf."
 
 sleep 1.5
 
