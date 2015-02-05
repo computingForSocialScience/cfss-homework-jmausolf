@@ -151,7 +151,7 @@ def zip_code_barchart():
 	# Create counts of zip codes. 
 	zipcode_counts = Counter(zip_codes)
 
-	#matplotlib.interactive(True)
+	
 	plt.bar(range(len(zipcode_counts)), zipcode_counts.values(), align='center', color='g')
 	plt.xticks(range(len(zipcode_counts)), zipcode_counts.keys())
 	plt.xticks(rotation=70)
