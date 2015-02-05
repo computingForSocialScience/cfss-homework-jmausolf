@@ -1,11 +1,14 @@
+### Designed to Run in MacOSX Terminal. "Open" commands do not run in Linnux.
+
 # Import Packages
 import csv
 import sys
 import pandas
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 from collections import Counter
+import subprocess
+import time
 
 
 # Read CSV File
@@ -80,7 +83,7 @@ def get_avg_latlng():
    print (avg_lat, avg_longe)
    print "*"*40
 
-get_avg_latlng()
+
 
 
 
@@ -148,6 +151,7 @@ def zip_code_barchart():
 	# Create counts of zip codes. 
 	zipcode_counts = Counter(zip_codes)
 
+	#matplotlib.interactive(True)
 	plt.bar(range(len(zipcode_counts)), zipcode_counts.values(), align='center', color='g')
 	plt.xticks(range(len(zipcode_counts)), zipcode_counts.keys())
 	plt.xticks(rotation=70)
@@ -158,7 +162,38 @@ def zip_code_barchart():
 	plt.grid(True)
 	plt.draw()
 	plt.savefig('bar.jpg')
+	subprocess.call("open bar.jpg", shell=True)
 
 
-zip_code_barchart()
 
+
+
+
+# Calling several combinations of funtions from shell
+
+sys_arg = sys.argv  
+
+
+try: 
+	first_arg = sys_arg[1]
+	if first_arg == "latlong": get_avg_latlng()
+	elif first_arg == "bar": zip_code_barchart()
+		
+
+	elif first_arg == "latlong, bar": 
+		get_avg_latlng()
+		time.sleep(1.5)
+		zip_code_barchart()
+
+
+	elif first_arg == "bar, latlong": 
+		zip_code_barchart()
+		time.sleep(1.5)
+		get_avg_latlng()
+
+
+	else: print("This argument is not recognized.")
+
+
+except:
+	print("Argument Error: Please specify at least one argument  such as 'latlong' or 'bar' or 'latlong, bar'")  
