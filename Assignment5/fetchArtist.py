@@ -19,18 +19,20 @@ def fetchArtistId(name):
     results = data['artists']['items']
     if len(results) > 0:
         artist_id = data['artists']['items'][0]['id']
-        print "Artist Name: ", name
-        print "Artist ID: ", artist_id
-        print "URL: ", "https://open.spotify.com/artist/"+artist_id
+        #print "Artist Name: ", name
+        #print "Artist ID: ", artist_id
+        #print "URL: ", "https://open.spotify.com/artist/"+artist_id
+        #print artist_id
+        return artist_id
     elif len(results) <= 0:
         print "No artists were found matching this description.", "\n", "Artist ID = <null request>."
         
     
-fetchArtistId("Justin Timberlake")
+"""fetchArtistId("Justin Timberlake")
 print "*"*50
 fetchArtistId("Usher")
 print "*"*50
-fetchArtistId("Zac Brown Band")
+fetchArtistId("Zac Brown Band")"""
 
 
 
@@ -46,7 +48,7 @@ def fetchArtistInfo(artist_id):
     """
 
     url = 'https://api.spotify.com/v1/artists/'+artist_id
-    print url
+    #print url
     
     req = requests.get(url)  
     if req.ok == False:
@@ -64,6 +66,7 @@ def fetchArtistInfo(artist_id):
     artist_info['Popularity: '] = data['popularity']
       
     
+
     #Print Dictionary
     print "*"*50
     print "*"*5, "ARTIST INFO", "*"*5
@@ -72,9 +75,9 @@ def fetchArtistInfo(artist_id):
     print "*"*50	
 
 
-
+"""
 fetchArtistInfo("31TPClRtHm23RisEBtV3X7")
 print "*"*50
-fetchArtistInfo("6yJCxee7QumYr820xdIsjo")
+fetchArtistInfo("6yJCxee7QumYr820xdIsjo")"""
 
 
