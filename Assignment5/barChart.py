@@ -38,13 +38,13 @@ def getBarChartData():
     for artist_row in artists_rows:
         if not artist_row:
             continue
-        artist_id,name,followers, popularity = artist_row
+        artist_id, name, followers, popularity, artist_genre, artist_url = artist_row
         artist_names.append(name)
 
     for album_row  in albums_rows:
         if not album_row:
             continue
-        artist_id, album_id, album_name, year, popularity = album_row
+        artist_id, album_id, album_name, year, popularity, album_artist_name, album_url = album_row
         for decade in decades:
             if (int(year) >= int(decade)) and (int(year) < (int(decade) + 10)):
                 decade_dict[decade] += 1

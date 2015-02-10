@@ -5,16 +5,22 @@ from csvUtils import writeArtistsTable, writeAlbumsTable
 from barChart import plotBarChart
 
 def ARTIST(artist_name):
-    fetchArtistId(artist_name)
-    Artist_ID = str(fetchArtistId(artist_name))
-    
-    fetchArtistInfo(Artist_ID)
-    #fetchAlbumIds(Artist_ID)
 
-    Album_ID = fetchAlbumIds(Artist_ID)
+    artist_info_list = []
+    album_info_list = []
+
+    #Make artist_info_list
+    artist_id = fetchArtistId(artist_name)
+    artist_info = fetchArtistInfo(artist_id)
+    artist_info_list.append(artist_info)
+
+    #Make album_info_list
+    album_id = fetchAlbumIds(artist_id)
+    for ID in album_id:
+        album_info = fetchAlbumInfo(ID)
+        album_info_list.append(album_info)
+
     
-    for ID in Album_ID:
-    	fetchAlbumInfo(ID)
 
 
 ## Example syntax to run from terminal shell:
@@ -23,30 +29,29 @@ def ARTIST(artist_name):
 if __name__ == '__main__':
     artist_names = sys.argv[1:]
     print "Input artists are : ", artist_names
-    # YOUR CODE HERE
-    for i in artist_names:
-    	ARTIST(i)
+
+    # Create Empty Info Lists
+    artist_info_list = []
+    album_info_list = []
+
+    #Make artist_info_list
+    for artist_name in artist_names:
+        artist_id = fetchArtistId(artist_name)
+        artist_info = fetchArtistInfo(artist_id)
+        artist_info_list.append(artist_info)
+
+    #Make album_info_list
+        album_id = fetchAlbumIds(artist_id)
+        for ID in album_id:
+            album_info = fetchAlbumInfo(ID)
+            album_info_list.append(album_info)
+
+    #Write CSV Files from Info Lists
+    writeArtistsTable(artist_info_list)
+    writeAlbumsTable(album_info_list)
+
+    #Plot and Open Bar Chart
+    plotBarChart()
 
 
 
-
-
-
-
-
-"""if __name__ == '__main__':
-    artist_names = sys.argv[1:]
-    print "Input artists are : ", artist_names
-    # YOUR CODE HERE
-    #artist_names = ["Justin Timberlake", "Usher", "Zac Brown Band"]
-    for i in artist_names:
-    	fetchArtistId(i)
-    	Artist_ID = str(fetchArtistId(i))
-    
-    	fetchArtistInfo(Artist_ID)
-    	#fetchAlbumIds(Artist_ID)
-
-       	Album_ID = fetchAlbumIds(Artist_ID)
-    
-    	for ID in Album_ID:
-    		fetchAlbumInfo(ID)"""
