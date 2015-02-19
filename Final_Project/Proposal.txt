@@ -1,0 +1,253 @@
+Joshua G. Mausolf
+First-Year Ph.D. Student, Dept. of Sociology
+University of Chicago, 1126 East 59th Street
+Chicago, IL 60637
+
+February 18, 2015
+Proposal for Final Project
+SOCI - 30235 CFSS
+
+//_____________________________________________________________________//
+
+OUTLINE:
+	
+	I.		Proposal Overview
+	II. 	Project Introduction 
+	III. 	CFSS Project Proposal
+			- Data Collection Methods
+			- Preliminary CFSS Analysis
+			- Presentation
+
+	IV. 	Collective (Non-CFSS) Project Description
+			- How the CFSS Project Ties In
+			- Methods
+			- Hypotheses
+			- Data Analysis
+
+//_____________________________________________________________________//
+
+I.	PROPOSAL OVERVIEW
+
+
+	In this project proposal, I outline several sections, chiefly (1) a project introduction, (2) the CFSS project proposal, and (3) the collective (non-CFSS) project description. 
+
+	The first section explains the project goals for this class, CFSS 30235. This class proposal will be primarily a data collection effort rather than an analytic effort to serve as the foundation for a larger project that I intend to conduct toward my qualifying paper.
+
+	The second section elaborates on the general scraper and purpose of the overall project that I intend to conduct for my qualifying paper.
+
+
+	Before diving into the details of either section, let me first articulate the overarching project, in the following introduction. 
+
+
+//_____________________________________________________________________//
+
+
+II.	INTRODUCTION
+
+	In September 2011, the Occupy Wall Street movement quickly swept the United States and spread across the globe, most infamously with its entrenched encampments in the heart of Wall Street’s Zuccotti Park. These protests received extensive media coverage, in part due to the often-violent confrontations between protesters and police. Although the movement has been widely studied, it is often believed to have yielded little tangible gains in terms of legislation or altered public opinion. Nonetheless, as circulated by media at the height of the protests, President Obama seemed to echo rhetoric sympathetic with the movement. 
+
+	This scenario raises the question:
+
+	How did the Occupy Wall Street movement catalyze a shift (if any) in President Obama’s rhetoric on economic inequality, particularly with respect to dichotomy between the average American--that is, the “99%”--versus the highly affluent top “1%”? 
+	
+	I address in the following two sections my plans for data collection, this class project, and additional details regarding finding an answer to the research question proposed in this section. 
+
+
+//_____________________________________________________________________//
+
+
+III. 	CFSS PROJECT PROPOSAL
+
+	For the class portion of this project, I propose to collect textual data, namely, the parsed text for every transcribed speech or remark by the president, from the beginning of Obama's presidency to the present. Thus, the completed dataset will consist of a folder of plain text files--one for each speech or remark by President Obama--which each have a discrete identifiable filename corresponding to the date and time of the speech, such as 03-10-2014_1054AM.txt. 
+
+	The outline for this portion of the project is as follows:
+
+	A.	DATA COLLECTION METHODS.
+
+		i.		SOURCE.
+
+				The source for the data comes from the White House: Office of the Press Secretary. 
+
+				Obtaining the actual URL's for each speech or remark is somewhat complex.
+
+				For example, the default page for "Speeches and Remarks" is as follows:
+				<http://www.whitehouse.gov/briefing-room/Speeches-and-Remarks/ >
+
+				The page for a given month, year, and "page" listing of speeches is as follows:
+				<http://www.whitehouse.gov/briefing-room/Speeches-and-Remarks/2012/05?page=2>
+
+
+				But the URL for any given speech or remark redirects to a different URL directory with a unique URL string, such as:
+				<http://www.whitehouse.gov/the-press-office/2011/11/12/remarks-president-obama-and-president-medvedev-russia-after-bilateral-me>
+
+
+				In the following sections, I outline the strategy for obtaining the links to each individual speech URL.
+
+
+		ii. 	OBTAINING THE SPEECH URLS.
+
+				In order to obtain the speech URLs, numerous steps must be taken. I outline those here.
+
+				#1 FIRST: Getting All Parent URLS.
+
+					I will first generate a list of all 'parent' directories. The parent directories follow a basic pattern:
+
+					http://www.whitehouse.gov/briefing-room/Speeches-and-Remarks/YYYY/MM
+
+					This pattern is such that the URL string ends in YYYY/MM, beginning at 2009/01 and ending at the present year and month combination (future YYYY/MM result in a blank page).
+
+					Generating the parent URLs will be a multi-function process involving generating a list of URL strings with every valid permutation of YYYY/MM:
+
+					[http://www.whitehouse.gov/briefing-room/Speeches-and-Remarks/2009/01
+						.
+						.
+						.
+						.
+						.
+					http://www.whitehouse.gov/briefing-room/Speeches-and-Remarks/2015/03]
+					*which will generate out to future dates past 2015/03 for the purposes of future analysis
+
+					I will write this list of parent URLs out to a CSV file for further use.
+
+					Since the CSV is written in a particular order, each line corresponds to a particular date.
+					I will write a subsequent date translator such that if a user instructs the collective function to pull speeches for "2013/05", the function will know to use the parent URL from row 53 of the CSV file. 
+
+
+
+				#2 	SECOND: Scraping All "Pages" for a Given Parent URL:
+
+					As previously mentioned, each parent URL for a given YYYY/MM combination has a list of subpages. The base YYYY/MM page is equivalent to parent_url+"?page=0". 
+
+					At the bottom of this base parent URL, is a 'pager' navigation pane, where you can select, for example, "2", "3",..."X", "Next Page" specific to the number of pages available for that year and month.
+
+					Thus, the task in this section is to write the functions to scrape how many pages exist for a given parent URL.
+
+
+
+				#3 	THIRD: Constructing the Sub-Page URLS.
+
+					After writing the page number scraper, I will write an additional function using as input, a particular parent URL and returning a list of sub-page URLs concatenated from the parent for every subpage. 
+
+					Thus, an input of <http://www.whitehouse.gov/briefing-room/Speeches-and-Remarks/2009/09>
+
+					might return the following sub-pages:
+
+					[
+					http://www.whitehouse.gov/briefing-room/Speeches-and-Remarks/2009/09?page=0
+					http://www.whitehouse.gov/briefing-room/Speeches-and-Remarks/2009/09?page=1
+					http://www.whitehouse.gov/briefing-room/Speeches-and-Remarks/2009/09?page=2
+					http://www.whitehouse.gov/briefing-room/Speeches-and-Remarks/2009/09?page=3
+					http://www.whitehouse.gov/briefing-room/Speeches-and-Remarks/2009/09?page=4].
+
+
+
+				#4 	FOURTH: Obtaining the Speech URLS for Every Subpage.
+
+					Next, I will utilize every subpage URL, and for ever subpage, scrape a list of URLS for each speech. 
+
+					For the subpage HTML, these fall under the header <a href= > under the section <div, "class=view-content">. 
+
+					The particular hrefs, however, are not the full URL's but rather the URL extension. Thus, an example href would be as follows:
+
+					<a href="/the-press-office/2011/11/14/remarks-president-campaign-event">
+
+					The URL extensions would be appended to base speech URL "http://www.whitehouse.gov".
+
+					The goal will be to export every speech URL to a list. 
+
+
+				#5 	FIFTH: Sorting the Speech URLS.
+
+					Because every speech URL on the White House: Office of the Press Secretary does not contain speech content from President Obama, it will be necessary to filter the speech URL's into discrete files.
+
+					While the primary speaker is President Obama, several other common speakers are First Lady Michelle Obama and Vice President Biden. While the anticipated analysis is on the President only, creating separate speech URLs for these other agents may be helpful for future studies.
+
+					I anticipate filtering these speeches using a shell script to "grep" the master speech URL list and append relevant URL lines to discrete speech URL CSV's for the President, Vice President, and First Lady.
+
+
+				#6 	SIXTH: Scraping and Saving Each Presidential Speech
+
+					For each URL in the presidential speeches URL list, I will scrape and save the speech content, including the following attributes: Date, Release, Title, and Paragraph Body. Each of these elements has their own separate HTML headings. 
+
+					So that the results can be saved, I will have the parser function encode and write these textual elements to a .txt file encoded in 'utf-8'. Each speech will necessarily have its own text file, whose name will be specially generated using elements of the URL and speech as follows:
+
+					"year_id+'-'+month_id+'-'+day_id+'_'+hour_id+minute_id+am-pm+'.txt'"
+
+					Example: 2011-09-17_1157AM.txt
+
+					In this way, I can easily control the textual periodization for future analysis.
+
+
+					**Note, this general scraping outline is period specific. The White House restructures their HTML formatting for speeches and remarks at least once in 2009, necessitating different functions for the scraping and saving depending on the date.
+
+					Once all the data for every speech and remark is scraped and saved, I will compile for this project some brief analysis and interactive elements for the CFSS presentation.
+
+
+
+	B.	PRELIMINARY CFSS ANALYSIS
+
+		The intended analysis for the overall project is beyond the scope and timeline of this course. For the purposes of this class, the analysis and presentation portion will be limited to a more visual and basic strategy as follows:
+
+		i.		BASIC CODE STRATEGY AND RUNNING:
+
+				For this portion, I would like to put together some graphics and other display illustrating the code strategy and running of the code in a web-presentable format to give other students an idea of the data collection method.
+
+
+		ii.		BASIC DATASET STATISTICS.
+
+				I would like to supplement this information, with basic descriptive statistics of the dataset such as how many presidential speech URLs/speeches, average speeches per month, per year, and the distribution of his speeches per month for the presidency.
+
+
+		iii.	BASIC TEXTUAL ANALYSIS:
+
+				For this section, I intend to create some basic directed network graphs of the speech data based on frequency and context of the speeches. The best freely available software or open source I have discovered so far is VosViewer, which given the input of a speech corpus, analyzes the textual content and provides a di-graph that the user can manipulate. 
+
+				The output is similar to that produced by Gephi but packaged with text-specific analytics to produce the text network graph. 
+
+
+	C. 	PRESENTATION
+
+		For the presentation, I intend to create a web-presentable final project. I will investigate the flask resource to see what types of web-presentation and features are possible. The envisioned final presentation will include graphics, code, images, possibly video, or other interactive elements for the presentation.
+
+		Elements will be similar to the above-described analysis such as basic code strategy, basic dataset statistics, and basic textual network analysis.
+
+
+
+
+//_____________________________________________________________________//
+
+IV. 	COLLECTIVE (NON-CFSS) PROJECT DESCRIPTION
+	
+		
+		In sum, the CFSS final project will provide the basis for a future project on how President Obama uses political speech to address concerns of the Occupy Wall Street movement and issues of inequality. 
+
+		This data collection project will therefore provide the needed data for a more substantive analysis. I intend to conduct this analysis for my qualifying paper. 
+
+		I hypothesize the following results will be found regarding the efficacy of the Occupy Wall Street movement in relation to President Obama’s economic rhetoric:
+
+		Hypothesis 1: There will be a statistically significant increase in the rhetoric of President Obama that is favorable to the ideology of Occupy Wall Street in the period after the movement began as compared to the pre-Occupy period of the Obama presidency. 
+
+		Hypothesis 2: During the height of the Occupy Wall Street protests, there will be a positive chronological association, such that a major event of Occupy Wall Street protest yields a subsequent increase in favorable rhetoric from President Obama in the hours and days following said event.
+
+		Hypothesis 3: For such events, there will be a statistically significant positive correlation between the number of protesters arrested at an Occupy Wall Street event and the level of favorable rhetoric by the President in the subsequent twenty-four hours.
+
+		Hypothesis 4: The statically significant increase in President Obama’s favorable rhetoric will be causally catalyzed by the Occupy Wall Street movement, namely:
+			H4A: 	The rhetorical shift occurred following the onset of the Occupy Wall Street.
+			H4B: 	The rhetorical shift lingered long after the decline of Occupy Wall Street.
+			H4C: 	The rhetorical shift is best explained by the onset of Occupy Wall Street versus alternative possible factors such as but not limited to media coverage of Occupy Wall Street, economic benchmarks (DJIA, GDP, Unemployment rate, etc.), public opinion polls, or elections.
+
+		
+		Collectively, I will advance the argument that Occupy Wall Street catalyzed the rhetorical shift in Obama’s rhetoric, one which still prevails in the present, not necessarily under a continuing theoretical paradigm of political mediation but rather political opportunism: that is, the onset of Occupy afforded President Obama the ability to favorably shape his presidential legacy as a man of the people—a president who stood up for and championed the causes of society’s most disadvantaged.
+
+
+		Thus, my anticipated dependent variables, independent variables, and control variables are as follows:
+
+		Dependent Variables:	President Obama’s economic rhetoric as defined by specific code categories or linguistic typologies regarding various economic topics including those sympathetic to the goals of Occupy Wall Street. 
+
+		Independent Variables:	Events of Occupy Wall Street
+
+		Independent Controls:	Media Coverage of Occupy Wall Street, economic benchmarks (DJIA, GDP, Unemployment, etc.), public opinion polls, and national elections
+
+		Collectively, I intend to analyze the historical data using content analysis software, chiefly Atlas.ti. For robustness, I will likely conduct multiple types of textual analysis including auto-coding the speech data on specific code categories, examining specific keywords, examining word networks, argumentative complexity on specific topics, and so forth.
+
+		Once conducting all the textual analysis, I will examine the output of this process statistically using Stata. I anticipate multiple levels of comparison. Broadly, to compare the pre-Occupy, Occupy, and post-Occupy periods of speech to see what differences, if any, exist. In addition, I intend to examine the day-by-day periodization of speech, to examine how the President varied speech in response to significant events of Occupy Wall Street. Beyond graphical interpretations, I would like to include some multivariate time series analysis to determine if Occupy Wall Street was a significant causal influence catalyzing a rhetorical shift, or if this is better explained by alternative factors, such as media coverage of Occupy, public opinion, or other macroeconomic indicators.
