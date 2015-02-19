@@ -90,11 +90,11 @@ def getDepthEdges(artistID, depth):
             new_pairs += [(artist, artist2) for artist2 in getRelatedArtists(artist) if (artist, artist2) or (artist2, artist) not in current_pairs]
         pairs += new_pairs 
 
-
+    return pairs
     #Removes Duplicate Artist Combinations
-    final = set(map(frozenset, pairs))
-    final_pairs = list(final)
-    return final_pairs
+    #final = set(map(frozenset, pairs))
+    #final_pairs = list(final)
+    #return final_pairs
 
 
 #Example to test. Unhash to test.
@@ -114,15 +114,15 @@ def getEdgeList(artistID, depth):
 #Example to test. Unhash to test.
 #getEdgeList("6FBDaR13swtiWwGhX1WQsP", 2)
 
-def writeEdgeList(artistID, depth, filename_str):
+def writeEdgeList(artistID, depth, filename):
     """Writes a CSV file of the artist and related artists for
     a given artistID and requested depth."""
     
     df = getEdgeList(artistID, depth)
-    df.to_csv(filename_str+".csv", index=False) 
+    df.to_csv(filename, index=False) 
 
 #Example to test. Unhash to test.
-#writeEdgeList("6FBDaR13swtiWwGhX1WQsP", 2, "Blink-182")
+#writeEdgeList("6FBDaR13swtiWwGhX1WQsP", 2, "Blink-182.csv")
 
 
 
@@ -137,5 +137,6 @@ def writeEdgeList_byArtist(artistname, depth):
 
 
 #Example to test. Unhash to test.
-#writeEdgeList_byArtist("Blink-182", 2)
+writeEdgeList_byArtist("Blink-182", 2)
+#writeEdgeList_byArtist("Sum 41", 2)
 #writeEdgeList_byArtist("Zac Brown Band", 2)
