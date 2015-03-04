@@ -91,7 +91,11 @@ def getDepthEdges(artistID, depth):
         pairs += new_pairs 
 
     return pairs
+
     #Removes Duplicate Artist Combinations
+    #The below seems to more effectively remove duplicates, but
+    #causes the funtion randomCentralNode in analyzeNetworks.py
+    #to break because the Nx.eigenvectors are equal to zero.
     #final = set(map(frozenset, pairs))
     #final_pairs = list(final)
     #return final_pairs
@@ -112,7 +116,8 @@ def getEdgeList(artistID, depth):
 
 
 #Example to test. Unhash to test.
-#getEdgeList("6FBDaR13swtiWwGhX1WQsP", 2)
+#print getEdgeList("6FBDaR13swtiWwGhX1WQsP", 2)
+
 
 def writeEdgeList(artistID, depth, filename):
     """Writes a CSV file of the artist and related artists for
@@ -125,6 +130,19 @@ def writeEdgeList(artistID, depth, filename):
 #writeEdgeList("6FBDaR13swtiWwGhX1WQsP", 2, "Blink-182.csv")
 
 
+def getEdgeList_byArtist(artistname, depth):
+    """Gets a list of 'edges' or artist1 to artist2 links
+    writing the results to a Pandas DataFrame."""
+
+    artistID = fetchArtistId(artistname)
+    final_pairs = getDepthEdges(artistID, depth)
+    fp_df = pd.DataFrame(final_pairs, columns=['Artist1', 'Artist2'])
+    #print fp_df #Un-hash to test.
+    return fp_df    
+
+
+#Example to test. Unhash to test.
+#print getEdgeList_byArtist("Blink-182", 2)
 
 def writeEdgeList_byArtist(artistname, depth):
     """Writes a CSV file of the artist and related artists for
@@ -137,6 +155,6 @@ def writeEdgeList_byArtist(artistname, depth):
 
 
 #Example to test. Unhash to test.
-writeEdgeList_byArtist("Blink-182", 2)
+#writeEdgeList_byArtist("Blink-182", 2)
 #writeEdgeList_byArtist("Sum 41", 2)
 #writeEdgeList_byArtist("Zac Brown Band", 2)
