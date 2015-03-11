@@ -15,13 +15,16 @@
 <body bgcolor="#000000">
 	<font color="white">
 
-	<table>
+	<table style="width:100%">
+
+
 		<tr>
 			<th>#</th>
 			<th>Artist</th>
 			<th>Album</th>
 			<th>Track</th>
 		</tr>
+
 	{% for songOrder, artistName, albumName, trackName in songs %}
 		<tr>
 			<td> {{songOrder}} </td>
