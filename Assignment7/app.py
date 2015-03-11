@@ -125,7 +125,6 @@ def make_index_resp():
 @app.route('/playlists/')
 def make_playlists_resp():
     cur = db.cursor()
-    db.commit()
     sql = '''
         SELECT id,rootArtist
         FROM playlists
@@ -162,7 +161,7 @@ def add_playlist():
             createNewPlaylist(artistName)
             return(redirect("/playlists/"))
         except:
-            print "Rancdom exception occured. Playlist may not have wrote or have a length less than thirty."
+            print "Random exception occured. Playlist may not have wrote or have a length less than thirty."
             print "Try to rerun the playlist. If error persists, try another artist."
             return(redirect("/playlists/"))
 
