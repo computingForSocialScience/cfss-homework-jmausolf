@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+
+<head>
+
+
+	<title>Playlist</title>
+
+	    <div class="image">
+	        <a href="https://www.spotify.com/us/"><img src="http://asiangeeksquad.com/wp-content/uploads/2015/01/spotify-logo-primary-horizontal-dark-background-rgb_0.jpg" width="400" height="200" alt=""></a>
+	    </div>
+
+</head>
+
+<body bgcolor="#000000">
+	<font color="white">
+
+	<table>
+		<tr>
+			<th>#</th>
+			<th>Artist</th>
+			<th>Album</th>
+			<th>Track</th>
+		</tr>
+	{% for songOrder, artistName, albumName, trackName in songs %}
+		<tr>
+			<td> {{songOrder}} </td>
+			<td> {{artistName}} </td>
+			<td> {{albumName}} </td>
+			<td> {{trackName}} </td>
+		</tr>
+	{% endfor %}
+	</table>
+
+	</font>
+</body>
+</html>
+
+

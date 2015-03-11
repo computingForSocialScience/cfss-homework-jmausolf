@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+
+		<style>
+		a:link {
+		color: #CC0000;}
+		a:visited {
+		color: #999999;}
+		a:hover {
+		color: #FF3300;}
+		</style>
+
+	    <div class="image">
+	        <a href="https://www.spotify.com/us/"><img src="http://asiangeeksquad.com/wp-content/uploads/2015/01/spotify-logo-primary-horizontal-dark-background-rgb_0.jpg" width="400" height="200" alt=""></a>
+	    </div>
+
+	<title>Album list</title>
+</head>
+<body bgcolor="#000000">
+	<font color="white">
+
+	<table>
+		<tr>
+			<th>ID</th>
+			<th>Playlist</th>
+		</tr>
+	{% for id, rootArtist in playlists %}
+		<tr>
+			<td><a href="/playlist/{{ id }}"> {{id}} </a> </td>
+			<td><a href="/playlist/{{ id }}"> {{ rootArtist }} </td>
+		</tr>
+	{% endfor %}
+	</table>
+
+	</font>
+</body>
+</html>
