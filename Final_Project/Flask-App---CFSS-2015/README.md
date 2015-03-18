@@ -9,7 +9,7 @@ This app includes several elements such as a locally run Ipython notebook segmen
 In addition, the local app is in dialog with several external websites such as GitHub, Dropbox, and a live website hosted by Wix featuring many of these elements.
 
 
-# More information 
+# More Information 
 More information on my White House Speech Project is available at my other GitHub repositories:
 
 https://github.com/jmausolf/Get_White_House_Data_PKG 
