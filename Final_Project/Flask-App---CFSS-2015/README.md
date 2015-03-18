@@ -13,4 +13,5 @@ In addition, the local app is in dialog with several external websites such as G
 More information on my White House Speech Project is available at my other GitHub repositories:
 
 https://github.com/jmausolf/Get_White_House_Data_PKG 
+
 https://github.com/jmausolf/White_House_Speeches
