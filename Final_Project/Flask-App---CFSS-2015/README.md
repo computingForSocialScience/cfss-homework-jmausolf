@@ -9,6 +9,17 @@ This app includes several elements such as a locally run Ipython notebook segmen
 In addition, the local app is in dialog with several external websites such as GitHub, Dropbox, and a live website hosted by Wix featuring many of these elements.
 
 
+# To Launch
+
+* From your terminal, navigate to the folder App.
+* Type the following:
+
+$python launch_ipython.py
+$python app.py
+
+Your local Flask app should now be running. 
+
+
 # More Information 
 More information on my White House Speech Project is available at my other GitHub repositories:
 
