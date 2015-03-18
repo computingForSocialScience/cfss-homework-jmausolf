@@ -11,8 +11,7 @@ In addition, the local app is in dialog with several external websites such as G
 
 # To Launch
 
-* From your terminal, navigate to the folder App.
-* Type the following:
+From your terminal, navigate to the folder App. Then, type the following:
 
 * $python launch_ipython.py
 * $python app.py
