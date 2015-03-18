@@ -14,8 +14,8 @@ In addition, the local app is in dialog with several external websites such as G
 * From your terminal, navigate to the folder App.
 * Type the following:
 
-** $python launch_ipython.py
-** $python app.py
+* $python launch_ipython.py
+* $python app.py
 
 Your local Flask app should now be running. 
 
