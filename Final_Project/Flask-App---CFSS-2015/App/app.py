@@ -119,6 +119,11 @@ def make_index_resp():
     return(render_template('index.html'))
 
 
+@app.route('/action/')
+def action():
+    # Routes to local http://127.0.0.1:5000/    
+    return(render_template('action.html'))
+
 @app.route('/github_pkg/')
 def make_github_pkg():
     # Routes to local http://127.0.0.1:5000/    
