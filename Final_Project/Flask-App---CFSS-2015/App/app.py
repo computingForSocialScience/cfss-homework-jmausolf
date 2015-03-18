@@ -35,9 +35,7 @@ def createSpeechURLs(dateone, datetwo):
 
     cur = db.cursor()
     CREATE_TABLE_speech_urls = '''CREATE TABLE IF NOT EXISTS speech_urls (id INTEGER PRIMARY KEY AUTO_INCREMENT, speech_urls VARCHAR(260));'''
-    #CREATE_TABLE_songs = '''CREATE TABLE IF NOT EXISTS songs (id INTEGER PRIMARY KEY AUTO_INCREMENT, playlistId INTEGER, songOrder INTEGER, artistName VARCHAR(260), albumName VARCHAR(260), trackName VARCHAR(260));'''
     cur.execute(CREATE_TABLE_speech_urls)
-    #cur.execute(CREATE_TABLE_songs)
     db.commit()
 
     #####################################################################
@@ -109,16 +107,6 @@ def createSpeechURLs(dateone, datetwo):
         time.sleep(0.5)
         speech_urls(subURL)
 
-
-
-
-
-
-    #Add artist's name to the playlists table.
-    #cur = db.cursor()
-    #add_to_playlist = '''INSERT INTO speech_urls (speech_urls) VALUES ('%s')''' % (inputName)
-    #cur.execute(add_to_playlist) 
-    #db.commit()
 
 
 
@@ -216,7 +204,36 @@ def get_parsedSpeech():
                         print "ERROR: NO SPEECH PARSED. EXCEPTION CODE: 99"
                         pass
 
-        return(redirect('/speech_urls/'))
+        return(redirect('/postSpeech'))
+
+
+@app.route('/getSpeech-1st/',methods=['GET','POST'])
+def get_parsedSpeech1st():
+    if request.method == 'GET':
+        return(render_template('getspeech1st.html'))
+    elif request.method == 'POST':
+        speechURL = request.form['url']
+        print speechURL
+        try:
+            WHT(speechURL)
+            print "ran WHT1"
+        except:
+            try:
+                WHT2(speechURL)
+                print "ran WHT2"
+            except:
+                try:
+                    pre_WHT3(speechURL)
+                    print "ran pre_WHT3"
+                except:
+                    try:
+                        WHT3(speechURL)
+                        print "ran WHT3"
+                    except:
+                        print "ERROR: NO SPEECH PARSED. EXCEPTION CODE: 99"
+                        pass
+
+        return(redirect('/postSpeech/'))
 
 
 
@@ -249,30 +266,48 @@ def get_parsedSpeech_embed():
         return(redirect('/thankyou/'))
 
 
-@app.route('/getSpeech2/')
-def get_parsedSpeech2():
-
-    with open('2011-01-25_ID1.txt', 'r') as f:
-        text = f.read()
-
-        text = '<div style="white-space; pre-wrap;">'+text+"</div>"
-        return(text)
 
 
+@app.route('/postSpeech/',methods=['GET','POST'])
+def get_postSpeech():
+    if request.method == 'GET':
+        return(render_template('postspeech.html'))
+    elif request.method == 'POST':
+        filename = request.form['filename']
+        try:
+            contents = open(filename, 'r')
+            with open("filename.html", 'w') as e:
+                    for lines in contents.readlines():
+                        e.write("<pre>" + lines + "</pre> <br>")
+                        e.close
+
+            with open('filename.html', 'r') as f:
+                text = f.read()
+
+                text = '<div style="white-space; pre-wrap;">'+text+"</div>"
+                return(text)
+
+        except:
+            return(redirect('/getSpeech-1st/'))
 
 
+@app.route('/postSpeech2/',methods=['GET','POST'])
+def get_postSpeech2():
+    if request.method == 'GET':
+        return(render_template('postspeech.html'))
+    elif request.method == 'POST':
+        filename = request.form['filename']
+        try:
+            with open(filename, 'r') as f:
+                text = f.read()
 
-@app.route('/show_speech/')
-def show_speech_resp():
-    cur = db.cursor()
-    db.commit()
-    sql = '''
-        SELECT id, speech
-        FROM parsed_speeches
-        ORDER BY id '''
-    cur.execute(sql)
-    show_speech = cur.fetchall()
-    return render_template('show_speech.html', show_speech=show_speech)
+                text = '<div style="white-space; pre-wrap;">'+text+"</div>"
+                return(text)
+
+        except:
+            return(redirect('/getSpeech-1st/'))
+
+
 
 
 
