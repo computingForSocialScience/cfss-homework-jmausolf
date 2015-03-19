@@ -112,6 +112,6 @@ The speeches for each actor (The President, Vice President, First Lady, Second L
 
 * Bash CSVs and Speech Folders are renamed. For example:
 
-mv bash_CSVs 2011_CSVs
-mv bash_Speech 2011_Speeches
+* mv bash_CSVs 2011_CSVs
+* mv bash_Speech 2011_Speeches
 
