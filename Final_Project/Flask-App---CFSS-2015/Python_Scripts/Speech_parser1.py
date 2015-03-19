@@ -96,9 +96,9 @@ def WHT(url):
                     f.write(release.encode('utf-8'))
                     f.write(title.encode('utf-8'))
                     f.write(paragraph_body.encode('utf-8'))
-                    open_call="open "+path3
-                    subprocess.call(open_call, shell=True)
                     f.close
+                    open_call3="open "+path3
+                    subprocess.call(open_call3, shell=True)
                     return
                 elif os.path.isfile(path3) == True:
                     #print "found file ID3, check for ID4"
@@ -111,8 +111,8 @@ def WHT(url):
                         f.write(title.encode('utf-8'))
                         f.write(paragraph_body.encode('utf-8'))
                         f.close
-                        open_call="open "+path3
-                        subprocess.call(open_call, shell=True)
+                        open_call4="open "+path4
+                        subprocess.call(open_call4, shell=True)
                         return
                     elif os.path.isfile(path4) == True:
                         #print "found file ID4, check for ID5"
@@ -125,8 +125,8 @@ def WHT(url):
                             f.write(title.encode('utf-8'))
                             f.write(paragraph_body.encode('utf-8'))
                             f.close
-                            open_call="open "+path4
-                            subprocess.call(open_call, shell=True)
+                            open_call5="open "+path5
+                            subprocess.call(open_call5, shell=True)
                             return
                         elif os.path.isfile(path5) == True:
                             print "found IDs 1-5, create random ID"

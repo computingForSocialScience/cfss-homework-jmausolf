@@ -54,6 +54,8 @@ def WHT3(url):
             f.write(paragraph_body1.encode('utf-8'))
             f.write(paragraph_body2.encode('utf-8'))
             f.close
+            open_call1="open "+path1
+            subprocess.call(open_call1, shell=True)
             return
 
         elif os.path.isfile(path1) == True:
@@ -65,6 +67,8 @@ def WHT3(url):
                 f.write(paragraph_body1.encode('utf-8'))
                 f.write(paragraph_body2.encode('utf-8'))
                 f.close
+                open_call2="open "+path2
+                subprocess.call(open_call2, shell=True)
                 return
             elif os.path.isfile(path2) == True:
                 #print "found file ID2, check for ID3"
@@ -75,6 +79,8 @@ def WHT3(url):
                     f.write(paragraph_body1.encode('utf-8'))
                     f.write(paragraph_body2.encode('utf-8'))
                     f.close
+                    open_call3="open "+path3
+                    subprocess.call(open_call3, shell=True)
                     return
                 elif os.path.isfile(path3) == True:
                     #print "found file ID3, check for ID4"
@@ -84,7 +90,9 @@ def WHT3(url):
                         f.write(url2.encode('utf-8'))
                         f.write(paragraph_body1.encode('utf-8'))
                         f.write(paragraph_body2.encode('utf-8'))
-                        f.close
+                        f.close                        
+                        open_call4="open "+path4
+                        subprocess.call(open_call4, shell=True)
                         return
                     elif os.path.isfile(path4) == True:
                         #print "found file ID4, check for ID5"
@@ -95,6 +103,8 @@ def WHT3(url):
                             f.write(paragraph_body1.encode('utf-8'))
                             f.write(paragraph_body2.encode('utf-8'))
                             f.close
+                            open_call5="open "+path5
+                            subprocess.call(open_call5, shell=True)
                             return
                         elif os.path.isfile(path5) == True:
                             print "found IDs 1-5, create random ID"
