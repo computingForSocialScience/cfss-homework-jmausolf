@@ -71,26 +71,26 @@ For any given bash-level shell script, such as $bash 2011.sh, a combination of p
 
 
 
-## ____________ FIRST_STAGE - Make New Directories ____________ ##
+## FIRST_STAGE - Make New Directories ##
 
 * Make New Directories -- CSVs 
 * Make New Directories -- Speeches
 
 
 
-## ____________ SECOND_STAGE - Collect URLs ___________________ ##
+## SECOND_STAGE - Collect URLs ##
 
 * Run main_speechesurls.py to generate CSV's using the following. Example:
 * $python __main_speech_urls_bearer.py "2011/01" "2011/12"
 
 
-## ____________ THIRD_STAGE - Filter URLs _____________________ ##
+## THIRD_STAGE - Filter URLs ##
 
 * Filter Speech URLs using $python __main_speech_urls_filter.py 
 
 This creates the filtered CSVs for each speaker, The President, Vice President, First Lady, Second Lady, and Other
 
-## ____________ FOURTH_STAGE - Sort Filtered URLs _____________ ##
+## FOURTH_STAGE - Sort Filtered URLs ##
 
 
 * Move Auxiliary CSVs
@@ -100,14 +100,14 @@ This creates the filtered CSVs for each speaker, The President, Vice President, 
 
 
 
-## ____________ FIFTH_STAGE - Parse All URLs __________________ ##
+## FIFTH_STAGE - Parse All URLs ##
 
 The speeches for each actor (The President, Vice President, First Lady, Second Lady, and Other) are all parsed using:
 
 * $python __main_speech_parser.py 
 
 
-## ____________ SIXTH_STAGE - Rename Bash Folders __________________ ##
+## SIXTH_STAGE - Rename Bash Folders ##
 
 
 * Bash CSVs and Speech Folders are renamed. For example:
